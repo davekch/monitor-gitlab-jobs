@@ -1,6 +1,12 @@
 # monitor-gitlab-jobs
-
 Script to observe the status of all jobs in your latest Gitlab pipeline
+
+## Installation
+```bash
+pip install monitor-gitlab-jobs
+```
+
+## Usage
 
 ```bash
 usage: monitor-gitlab-jobs [-h] [--token TOKEN] [--ref REF] [--gitlab_url GITLAB_URL] project_id
