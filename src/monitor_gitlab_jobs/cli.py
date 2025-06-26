@@ -1,4 +1,5 @@
 import argparse
+from gitlab.exceptions import GitlabGetError
 from gitlab.v4.objects.pipelines import ProjectPipeline, ProjectPipelineJob
 from rich.live import Live
 from rich.table import Table
@@ -72,11 +73,16 @@ def get_args() -> argparse.Namespace:
 def main() -> None:
     args = get_args()
     with console.status("fetching project...") as status:
-        project = get_project(
-            project_id=args.project_id,
-            gitlab_url=args.gitlab_url,
-            token=args.token,
-        )
+        try:
+            project = get_project(
+                project_id=args.project_id,
+                gitlab_url=args.gitlab_url,
+                token=args.token,
+            )
+        except GitlabGetError as e:
+            console.print(f"failed to get gitlab project ({e.error_message})")
+            sys.exit(1)
+
         status.update("waiting for pipeline to be created...")
         pipeline = wait_for_pipeline(project, ref=args.ref)
         if not pipeline:
