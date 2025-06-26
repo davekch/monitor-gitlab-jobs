@@ -1,7 +1,10 @@
 [project]
 name = "monitor-gitlab-jobs"
 version = "0.1.0"
-description = "Add your description here"
+description = "monitor Gitlab job statuses on the CLI"
+maintainers = [
+    { name = "David Koch", email = "code@davekoch.de" },
+]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -11,6 +14,9 @@ dependencies = [
 
 [project.scripts]
 monitor-gitlab-jobs = "monitor_gitlab_jobs.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/davekch/monitor-gitlab-jobs"
 
 [build-system]
 requires = ["hatchling"]
