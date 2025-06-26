@@ -17,6 +17,11 @@ options:
   --gitlab_url GITLAB_URL
 ```
 
+## Features
+- print a pretty table of all jobs of the latest pipeline (optionally given a ref) and their statuses
+- update the table until all jobs are finished
+- returns 0 if all jobs are either successful or skipped, 1 otherwise
+
 ## Example outputs
 ```bash
 $ monitor-gitlab-jobs 1234 --token $GITLAB_ACCESS_TOKEN --gitlab_url $GITLAB_URL --ref 0.6.4
