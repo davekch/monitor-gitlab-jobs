@@ -33,13 +33,33 @@ def format_status(status: str) -> str:
     return status_map.get(status, f"[white]❔ {status}[/]")
 
 
+def group_jobs_by_stage(jobs: list[ProjectPipelineJob]) -> dict[str, list[ProjectPipelineJob]]:
+    stages = {}
+    for job in jobs:
+        if job.stage not in stages:
+            stages[job.stage] = []
+        stages[job.stage].append(job)
+    return stages
+
 def render_job_status(jobs: list[ProjectPipelineJob]) -> Table:
     table = Table()
+    table.add_column("Stage")
     table.add_column("Job", no_wrap=True)
     table.add_column("Status")
 
-    for job in jobs:
-        table.add_row(job.name, format_status(job.status))
+    stages = group_jobs_by_stage(jobs)
+
+    _current = None
+    for stage, stage_jobs in stages.items():
+        for job in stage_jobs:
+            # print the stage only for the first job
+            if _current != stage:
+                print_stage = stage
+                _current = stage
+            else:
+                print_stage = ""
+            table.add_row(print_stage, job.name, format_status(job.status))
+        table.add_section()
 
     return table
 
