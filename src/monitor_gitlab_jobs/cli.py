@@ -80,7 +80,7 @@ def main() -> None:
                 token=args.token,
             )
         except GitlabGetError as e:
-            console.print(f"failed to get gitlab project ({e.error_message})")
+            console.print(f"[red]Error:[/] failed to get gitlab project ({e.error_message})")
             sys.exit(1)
 
         status.update("waiting for pipeline to be created...")
