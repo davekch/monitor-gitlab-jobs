@@ -108,6 +108,7 @@ def main() -> None:
         if not pipeline:
             console.print(f"[red]Error:[/] no pipeline found for project {args.project_id} @ {args.ref}")
             sys.exit(1)
+        console.print(f"web UI: {pipeline.web_url}")
 
     with Live(refresh_per_second=12.5) as live:
         final_jobs = render_jobs_until_finished(live, pipeline)
